@@ -26,6 +26,7 @@ export interface ParamEvidence {
   uncertain: boolean;
   confidence: number;
   candidates: string[];
+  resolved_value?: string | null;
 }
 
 export interface GateCheck {
@@ -56,6 +57,13 @@ export interface TurnOutcome {
   };
 }
 
+export interface ChatMessage {
+  id: string;
+  role: "user" | "agent";
+  text: string;
+  outcome?: TurnOutcome;
+}
+
 export interface ActionSchema {
   name: string;
   description: string;
@@ -69,9 +77,9 @@ export interface AuditEntry {
   action: string;
   parameters: Record<string, string>;
   sources: Record<string, string>;
-  risk: string;
+  risk: RiskLevel;
   confirmation: boolean;
-  decision: string;
+  decision: GateDecision | "CANCELLED";
   reason?: string;
   tool_result?: {
     status: string;
