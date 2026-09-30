@@ -12,9 +12,10 @@ from app.audit.recorder import AuditRecorder
 
 app = FastAPI(title="Voice Action Gate", version="0.2.0")
 
+# Updated CORS Middleware to allow requests from Netlify and anywhere
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:3001", "http://127.0.0.1:3001"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
